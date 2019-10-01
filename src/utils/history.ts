@@ -17,5 +17,8 @@
  */
 
 import { createBrowserHistory } from "history";
+import { AppConfig } from "../configs";
 
-export default createBrowserHistory({ basename: process.env.REACT_APP_BASE_PATH });
+const appConfig = new AppConfig();
+
+export default createBrowserHistory({ basename: appConfig.basePath });
