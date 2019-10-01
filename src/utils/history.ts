@@ -21,4 +21,4 @@ import { AppConfig } from "../configs";
 
 const appConfig = new AppConfig();
 
-export default createBrowserHistory({ basename: appConfig.basePath });
+export const history = createBrowserHistory({ basename: appConfig.basePath });
