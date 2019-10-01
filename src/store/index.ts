@@ -16,8 +16,11 @@
  * under the License.
  */
 
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import {
+    apiMiddleware,
+} from "./middleware";
 import reducers from "./reducers";
 
 /**
@@ -32,8 +35,14 @@ export type AppState = ReturnType<typeof reducers>;
  * @return {Store<any, AnyAction> & Store<S & {}, A> & {dispatch: any}} Redux Store
  */
 export default function configureStore() {
+    // Set of custom middleware.
+    const middleware = [
+        apiMiddleware
+    ];
+    const middleWareEnhancer = applyMiddleware(...middleware);
+
     return createStore(
         reducers,
-        composeWithDevTools()
+        composeWithDevTools(middleWareEnhancer)
     );
 }
