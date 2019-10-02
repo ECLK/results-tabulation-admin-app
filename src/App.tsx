@@ -1,22 +1,35 @@
 import React from 'react';
-import { BrowserRouter, Router } from "react-router-dom";
-import { history } from "./utils";
+import { Redirect, Route, Switch } from "react-router-dom";
 import './styles/app.scss';
-import { Provider } from "react-redux";
-import configureStore from "./store";
+import { useDispatch } from "react-redux";
+import { AppConfig } from "./configs";
+import { sendSignInRequest, sendSignOutRequest } from "./store/actions";
+import { ProtectedRoute, Users } from "./components";
 
-const store = configureStore();
+const appConfig = new AppConfig();
 
 const App: React.FC = () => {
+
+    const dispatch = useDispatch();
+
     return (
-        <BrowserRouter>
-            <Router history={ history }>
-                <Provider store={ store }>
-                    <div className="container-fluid">
-                    </div>
-                </Provider>
-            </Router>
-        </BrowserRouter>
+        <div className="container-fluid">
+            <Switch>
+                <Redirect exact path="/" to={ appConfig.loginPath }/>
+                <Route path={ appConfig.loginPath } render={ () => {
+                    dispatch(sendSignInRequest());
+                    return null;
+                } }/>
+                <Route path="/logout" render={ () => {
+                    dispatch(sendSignOutRequest());
+                    return null;
+                } }/>
+                <ProtectedRoute
+                    component={ Users }
+                    path="/overview"
+                />
+            </Switch>
+        </div>
     );
 };
 
