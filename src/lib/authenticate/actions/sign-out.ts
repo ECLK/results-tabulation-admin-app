@@ -16,8 +16,6 @@
  * under the License.
  */
 
-// tslint:disable-next-line:no-submodule-imports
-import { Error } from "tslint/lib/error";
 import { ID_TOKEN } from "../constants";
 import { getEndSessionEndpoint } from "./op-config";
 import { getSessionParameter } from "./session";
@@ -30,11 +28,11 @@ import { getSessionParameter } from "./session";
 export const sendSignOutRequest =  (redirectUri: string): Promise<any> => {
     const logoutEndpoint = getEndSessionEndpoint();
     if (!logoutEndpoint || logoutEndpoint.trim().length === 0) {
-        return Promise.reject(new Error("Invalid logout endpoint found."));
+        return Promise.reject("Invalid logout endpoint found.");
     }
     const idToken = getSessionParameter(ID_TOKEN);
     if (!idToken || idToken.trim().length === 0) {
-        return Promise.reject(new Error("Invalid id_token found."));
+        return Promise.reject("Invalid id_token found.");
     }
 
     window.location.href = `${logoutEndpoint}?` + `id_token_hint=${idToken}` +

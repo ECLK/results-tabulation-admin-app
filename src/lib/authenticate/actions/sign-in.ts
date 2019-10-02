@@ -17,8 +17,6 @@
  */
 
 import axios from "axios";
-// tslint:disable-next-line:no-submodule-imports
-import { Error } from "tslint/lib/error";
 import { AUTHORIZATION_CODE, OIDC_SCOPE, PKCE_CODE_VERIFIER, REQUEST_PARAMS } from "../constants";
 import { AuthenticatedUserInterface } from "../models/authenticated-user";
 import { OIDCRequestParamsInterface } from "../models/oidc-request-params";

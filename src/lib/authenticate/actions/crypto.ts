@@ -99,6 +99,7 @@ export const isValidIdToken = (idToken, jwk, clientID: string) => {
     return KJUR.jws.JWS.verifyJWT(idToken, jwk, {
         alg: getSupportedSignatureAlgorithms(),
         aud: [clientID],
+        // @ts-ignore
         gracePeriod: 3600,
         iss: [SERVICE_RESOURCES.token]
     });
