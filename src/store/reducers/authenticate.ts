@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { AuthenticateSessionUtil, AuthenticateTokenKeys, AuthenticateUserKeys } from "@wso2is/authenticate";
+import { AuthenticateSessionUtil, AuthenticateTokenKeys, AuthenticateUserKeys } from "../../libs/authenticate";
 import {
     ApiActionTypes,
     AuthenticateActionTypes,

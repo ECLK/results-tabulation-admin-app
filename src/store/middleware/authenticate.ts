@@ -22,7 +22,7 @@ import {
     OPConfigurationUtil,
     SignInUtil,
     SignOutUtil
-} from "@wso2is/authenticate";
+} from "../../libs/authenticate";
 import { setSignIn, setSignOut } from "../actions";
 import { AppConfig, RESOURCE_ENDPOINTS } from "../../configs";
 import { getAuthenticationCallbackUrl, history } from "../../utils";
