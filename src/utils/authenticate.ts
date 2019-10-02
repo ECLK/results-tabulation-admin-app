@@ -16,5 +16,20 @@
  * under the License.
  */
 
-export * from "./authenticate";
-export * from "./history";
+/**
+ * Update sessionStorage with location history path
+ *
+ * @param {string} location - history path.
+ */
+export const updateAuthenticationCallbackUrl = (location: string) => {
+    window.sessionStorage.setItem("auth_callback_url", location);
+};
+
+/**
+ * Get location history path from sessionStorage
+ *
+ * @return {string} location - history path.
+ */
+export const getAuthenticationCallbackUrl = () => {
+    return window.sessionStorage.getItem("auth_callback_url");
+};
