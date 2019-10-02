@@ -20,6 +20,7 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
     apiMiddleware,
+    authenticateMiddleware
 } from "./middleware";
 import reducers from "./reducers";
 
@@ -37,6 +38,7 @@ export type AppState = ReturnType<typeof reducers>;
 export default function configureStore() {
     // Set of custom middleware.
     const middleware = [
+        ...authenticateMiddleware,
         apiMiddleware
     ];
     const middleWareEnhancer = applyMiddleware(...middleware);

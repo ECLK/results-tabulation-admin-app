@@ -18,9 +18,8 @@
 
 import axios from "axios";
 import { apiRequestEnd, apiRequestStart } from "../actions";
-import { API_REQUEST, ApiActionTypes } from "../actions/types";
+import { API_REQUEST } from "../actions/types";
 import { HttpMethods, HttpRequestConfig } from "../../models/api";
-import { Dispatch } from "redux";
 
 /**
  * Intercepts and handles actions of type `API_REQUEST`.
@@ -28,7 +27,7 @@ import { Dispatch } from "redux";
  * @param {any} dispatch - `dispatch` function from redux
  * @returns {(next) => (action) => any} Passes the action to the next middleware
  */
-export const apiMiddleware = ({ dispatch }: { dispatch: any}) => (next: Dispatch<ApiActionTypes>) => (action: ApiActionTypes) => {
+export const apiMiddleware = ({ dispatch }: { dispatch: any}) => (next) => (action) => {
     next(action);
 
     if (action.type !== API_REQUEST) {

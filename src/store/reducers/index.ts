@@ -17,12 +17,15 @@
  */
 
 import { combineReducers } from "redux";
+import { authenticateReducer } from "./authenticate";
 
 /**
  * Combines all the reducers.
  *
  * @type {Reducer<any>} Root reducer to be used when creating the store.
  */
-const reducers = combineReducers({});
+const reducers = combineReducers({
+    authenticate: authenticateReducer
+});
 
 export default reducers;

@@ -65,4 +65,7 @@ export interface ApiRequestAction {
 /**
  * Action type to specify API actions.
  */
-export type ApiActionTypes = ApiRequestAction | ApiRequestStartAction | ApiRequestEndAction;
+export type ApiActionTypes =
+    ApiRequestAction
+    | ApiRequestStartAction
+    | ApiRequestEndAction;
