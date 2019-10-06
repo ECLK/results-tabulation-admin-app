@@ -20,6 +20,7 @@ const DEFAULT_CONFIG = {
     BASE_PATH: "admin",
     HOME_PATH: "/overview",
     LOGIN_PATH: "/login",
+    LOGOUT_PATH: "/logout",
     IS_ENDPOINT: "https://localhost:9443",
     TABULATION_API_ENDPOINT: "https://api.tabulation.ecstag.opensource.lk",
     CLIENT_ID: "ECLK_ADMIN_APP",
@@ -65,6 +66,17 @@ export class AppConfig {
         return process.env.REACT_APP_LOGIN_PATH
             ? process.env.REACT_APP_LOGIN_PATH
             : DEFAULT_CONFIG.LOGIN_PATH;
+    }
+
+    /**
+     * Returns the app logout path.
+     *
+     * @return {string}
+     */
+    public get logoutPath(): string {
+        return process.env.REACT_APP_LOGOUT_PATH
+            ? process.env.REACT_APP_LOGOUT_PATH
+            : DEFAULT_CONFIG.LOGOUT_PATH;
     }
 
     /**
