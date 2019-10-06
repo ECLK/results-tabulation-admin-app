@@ -75,8 +75,6 @@ export const handleSignIn = ({ dispatch }) => (next) => (action) => {
         }
     };
 
-    debugger;
-
     if (AuthenticateSessionUtil.getSessionParameter(AuthenticateTokenKeys.ACCESS_TOKEN)) {
         dispatch(setSignIn());
         loginSuccessRedirect();
