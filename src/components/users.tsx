@@ -17,11 +17,12 @@
  */
 
 import React, { FunctionComponent, useEffect, useState } from "react";
-import axios from "axios";
-import { AuthenticateSessionUtil } from "../lib/authenticate";
-import { AppConfig, RESOURCE_ENDPOINTS } from "../configs";
-
-const appConfig = new AppConfig();
+import { DashboardLayout } from "../layouts";
+import { Table, Header, Label, Image } from "semantic-ui-react";
+import { resolveUserDisplayName } from "../utils";
+import { Link } from "react-router-dom";
+import { fetchUsers } from "../api";
+import { IUsers } from "../models/users";
 
 /**
  * Proptypes for the associated accounts component.
@@ -32,48 +33,77 @@ interface UsersProps {
 /**
  * Associated accounts component.
  *
- * @param {BasicDetailsProps} props - Props injected to the basic details component.
+ * @param {UsersProps} props - Props injected to the component.
  * @return {JSX.Element}
  */
 export const Users: FunctionComponent<UsersProps> = (
     props: UsersProps
 ): JSX.Element => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<IUsers>({ Resources: [] });
 
     useEffect(() => {
-        fetchUsers();
+        fetchUsers()
+            .then((response) => {
+                console.log(response)
+                setUsers(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
-    /**
-     * Fetches associations from the API.
-     */
-    const fetchUsers = (): void => {
-        AuthenticateSessionUtil.getAccessToken().then((token) => {
-            const header = {
-                headers: {
-                    "Access-Control-Allow-Origin": appConfig.clientHost,
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            };
-
-            axios.get(RESOURCE_ENDPOINTS.users, header)
-                .then((response) => {
-                    if (response.status !== 200) {
-                        throw new Error("Failed get users");
-                    }
-                    setUsers(response.data);
-                }).catch((error) => {
-                    throw new Error(error);
-                });
-        }).catch((error) => {
-            throw new Error(error);
-        });
-    };
-
     return (
-        <div>
-            { JSON.stringify(users) }
-        </div>
+        <DashboardLayout pageTitle="Users">
+            {
+                users && users.Resources && users.Resources.length > 0
+                    ? (
+                        <Table basic='very' celled unstackable>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>User</Table.HeaderCell>
+                                    <Table.HeaderCell>Roles</Table.HeaderCell>
+                                    <Table.HeaderCell>Actions</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <tbody>
+                            </tbody>
+                            <Table.Body>
+                                {
+                                    users.Resources.map((user) => (
+                                            <Table.Row>
+                                                <Table.Cell>
+                                                    <Header as="h4" image>
+                                                        <Header.Content>
+                                                            {
+                                                                user.name
+                                                                    ? resolveUserDisplayName(user.name)
+                                                                    : null
+                                                            }
+                                                            <Header.Subheader>{ user.userName }</Header.Subheader>
+                                                        </Header.Content>
+                                                    </Header>
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {
+                                                        user.groups.map((group) => (
+                                                            <Label color="red" size="mini" style={{ marginBottom: "0.5em" }} horizontal circular>
+                                                                { group.display }
+                                                            </Label>
+                                                        ))
+                                                    }
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    <Link to={`/user/${user.id}`}>Edit</Link>
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        )
+                                    )
+                                }
+                            </Table.Body>
+                        </Table>
+                    )
+                    : null
+            }
+        </DashboardLayout>
     );
 };

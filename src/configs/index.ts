@@ -17,4 +17,5 @@
  */
 
 export * from "./app";
+export * from "./ec";
 export * from "./endpoints";

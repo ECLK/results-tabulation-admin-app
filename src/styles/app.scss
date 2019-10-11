@@ -1,22 +1,29 @@
-.app {
-  text-align: center;
-}
-
-.app-logo {
-  height: 40vmin;
-}
-
-.app-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.dashboard-layout {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.app-link {
-  color: #09d3ac;
+.dashboard-layout-content {
+  flex: 1;
+  margin-top: 3em;
+
+  .back-button {
+    margin-bottom: 1.5em;
+  }
+}
+
+.user-info {
+  .section {
+    margin-bottom: 1em;
+    .key {
+      font-weight: bold;
+      margin-bottom: .5em;
+    }
+    .value {
+      &.list {
+        margin-top: 1.3em;
+      }
+    }
+  }
 }

@@ -16,5 +16,8 @@
  * under the License.
  */
 
+export * from "./footer";
+export * from "./header";
 export * from "./protected-route";
 export * from "./users";
+export * from "./user";

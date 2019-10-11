@@ -16,6 +16,46 @@
  * under the License.
  */
 
-export * from "./authenticate";
-export * from "./history";
-export * from "./ui";
+/**
+ * Users Model
+ */
+export interface IUsers {
+    Resources: IUser[];
+}
+
+export interface IUser {
+    ElectionVolunteer: any;
+    groups: IGroup[];
+    id: string;
+    created: string;
+    lastModified: string;
+    resourceType: string;
+    name: IUserName;
+    familyName: string;
+    userName: string;
+}
+
+export interface IRoles {
+    Resources: IRole[];
+}
+
+export interface IRole {
+    displayName: string;
+    members: IMember[],
+    id: string
+}
+
+interface IMember {
+    display: string,
+    value: string,
+}
+
+export interface IUserName {
+    givenName: string,
+    familyName: string
+}
+
+export interface IGroup {
+    display: string;
+    value: string;
+}

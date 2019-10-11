@@ -16,6 +16,4 @@
  * under the License.
  */
 
-export * from "./authenticate";
-export * from "./history";
-export * from "./ui";
+export * from "./dashboard";

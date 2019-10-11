@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/index.scss';
-import App from './app';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "semantic-ui-css/semantic.min.css";
+import "./styles/index.scss";
+import { App } from "./app";
+import * as serviceWorker from "./serviceWorker";
 import { Router } from "react-router";
 import { history } from "./utils";
 import { Provider } from "react-redux";

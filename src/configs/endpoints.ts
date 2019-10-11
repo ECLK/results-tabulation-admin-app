@@ -21,8 +21,10 @@ import { AppConfig } from "./app";
 const appConfig = new AppConfig();
 
 const IS_ENDPOINT = appConfig.ISEndpoint;
+const TABULATION_ENDPOINT = appConfig.tabulationAPIEndpoint;
 
 export const RESOURCE_ENDPOINTS = {
+    area: `${TABULATION_ENDPOINT}/area`,
     authorize: `${IS_ENDPOINT}/oauth2/authorize`,
     jwks: `${IS_ENDPOINT}/oauth2/jwks`,
     logout: `${IS_ENDPOINT}/oidc/logout`,
