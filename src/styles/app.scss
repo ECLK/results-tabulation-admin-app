@@ -1,0 +1,29 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.dashboard-layout-content {
+  flex: 1;
+  margin-top: 3em;
+
+  .back-button {
+    margin-bottom: 1.5em;
+  }
+}
+
+.user-info {
+  .section {
+    margin-bottom: 1em;
+    .key {
+      font-weight: bold;
+      margin-bottom: .5em;
+    }
+    .value {
+      &.list {
+        margin-top: 1.3em;
+      }
+    }
+  }
+}
