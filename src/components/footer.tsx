@@ -35,7 +35,7 @@ interface FooterProps {
  */
 export const Footer: React.FunctionComponent<FooterProps> = (props: FooterProps): JSX.Element => {
     return (
-        <Menu attached="bottom" inverted fluid>
+        <Menu attached="bottom" borderless fluid>
             <Container>
                 <Menu.Item header>Copyright 2019. All rights reserved.</Menu.Item>
             </Container>

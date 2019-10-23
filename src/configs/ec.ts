@@ -15,7 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { sanitizeRoleName } from "../utils";
+import { sanitizeRoleName, beautifyRoleName } from "../utils";
 
 const CLAIM_PREFIX = "area_assign";
 
@@ -33,12 +33,24 @@ export class ECConfig {
      */
     public get ECRoles(): string[] {
         return [
-            "Application/admin",
             "PRIMARY/data_editor",
             "PRIMARY/pol_div_rep_view",
             "PRIMARY/pol_div_rep_verf",
             "PRIMARY/elc_dis_rep_view",
             "PRIMARY/elc_dis_rep_verf",
+            "PRIMARY/nat_dis_rep_view",
+            "PRIMARY/nat_dis_rep_verf",
+            "PRIMARY/ec_leadership"
+        ];
+    }
+
+    /**
+     * Returns the list of readonly ec roles.
+     *
+     * @return {string}
+     */
+    public get readonlyECRoles(): string[] {
+        return [
             "PRIMARY/nat_dis_rep_view",
             "PRIMARY/nat_dis_rep_verf",
             "PRIMARY/ec_leadership"
@@ -57,5 +69,9 @@ export class ECConfig {
 
     public getSanitizedRoleName (raw): string {
         return sanitizeRoleName(raw);
+    }
+
+    public getBeautifiedRoleName (raw): string {
+        return beautifyRoleName(raw);
     }
 }

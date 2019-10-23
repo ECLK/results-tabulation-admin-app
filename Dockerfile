@@ -14,6 +14,7 @@ ENV REACT_APP_LOGOUT_PATH=/logout
 ENV REACT_APP_IS_ENDPOINT=https://is.ecdev.opensource.lk
 ENV REACT_APP_TABULATION_API_ENDPOINT=https://api.tabulation.ecdev.opensource.lk
 ENV REACT_APP_CLIENT_ID=bBgn3wmyDDByHdL78GEAPmc0GKwa
+ENV REACT_APP_CLIENT_SECRET=XypSgdFYIvOmSds6xQqdBxqEeC8a
 ENV REACT_APP_CLIENT_HOST=https://admin.tabulations.ecdev.opensource.lk
 ENV REACT_APP_LOGIN_CALLBACK_URL=https://admin.tabulations.ecdev.opensource.lk/admin/login
 ENV REACT_APP_LOGOUT_CALLBACK_URL=https://admin.tabulations.ecdev.opensource.lk/admin/logout

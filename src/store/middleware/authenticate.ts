@@ -55,8 +55,8 @@ export const handleSignIn = ({ dispatch }) => (next) => (action) => {
         const requestParams = {
             clientHost: appConfig.clientHost,
             clientId: appConfig.clientID,
-            clientSecret: null,
-            enablePKCE: true,
+            clientSecret: appConfig.clientSecret,
+            enablePKCE: false,
             redirectUri: appConfig.loginCallbackURL,
             scope: null,
         };

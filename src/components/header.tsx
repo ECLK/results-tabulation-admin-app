@@ -22,6 +22,7 @@ import { AppState } from "../store";
 import { Button, Container, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { AppConfig } from "../configs";
+import ECLK_LOGO from "../assets/images/eclk-logo.png";
 
 const appConfig = new AppConfig();
 
@@ -41,10 +42,11 @@ export const Header: React.FunctionComponent<HeaderProps> = (props: HeaderProps)
     const username = useSelector((state: AppState) => state.authenticate.username);
 
     return (
-        <Menu  inverted>
+        <Menu  className="app-header" borderless>
             <Container>
                 <Menu.Item header>
-                    ECLK ADMIN APP
+                    <img src={ ECLK_LOGO } className="eclk-logo" />
+                    <div className="eclk-logo-text">ECLK ADMIN APP</div>
                 </Menu.Item>
                 <Menu.Menu position='right'>
                     {
