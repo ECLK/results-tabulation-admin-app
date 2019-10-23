@@ -1,5 +1,5 @@
 {
-  "name": "results-tabulation-admin-app",
+  "name": "@eclk/results-tabulation-admin-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
