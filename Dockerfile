@@ -6,7 +6,7 @@ COPY package.json /app/package.json
 COPY src /app/src
 COPY public /app/public
 ADD tsconfig.json /app/tsconfig.json
-RUN npm install --silent
+RUN npm install
 ENV REACT_APP_BASE_PATH=admin
 ENV REACT_APP_HOME_PATH=/users
 ENV REACT_APP_LOGIN_PATH=/login
