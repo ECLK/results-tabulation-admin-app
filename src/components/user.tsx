@@ -17,11 +17,11 @@
  */
 
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { AppConfig, ECConfig } from "../configs";
+import { ECConfig } from "../configs";
 import { Button, Divider, Form, Header, Icon, List, Modal, Select } from "semantic-ui-react";
 import { IGroup, IRoles, IUser } from "../models/users";
 import { Link } from "react-router-dom";
-import { resolveUserDisplayName, sanitizeRoleName } from "../utils";
+import { beautifyRoleName, resolveUserDisplayName, sanitizeRoleName } from "../utils";
 import { history } from "../utils";
 import { DashboardLayout } from "../layouts";
 import {
@@ -99,15 +99,16 @@ export const User: FunctionComponent<UserEditProps> = (
             return null;
         }
         return (
-            <List.Item>
-                <List.Content floated='right'>
+            <List.Item className="roles-list">
+                <List.Content floated="left">{ beautifyRoleName(role.displayName) }</List.Content>
+                <List.Content floated="right">
                     {
                         user.groups.find((group) => group.value === role.id)
-                            ? (user.ElectionVolunteer && user.ElectionVolunteer[ecConfig.getClaimMapping(role.displayName)])
+                            ? (user.EnterpriseUser && user.EnterpriseUser[ecConfig.getClaimMapping(role.displayName)])
                             ? (
                                 <>
                                     {
-                                        !(sanitizeRoleName(role.displayName) === "nat_dis_rep_view" || sanitizeRoleName(role.displayName) === "nat_dis_rep_verf" || sanitizeRoleName(role.displayName) === "ec_leadership")
+                                        !ecConfig.readonlyECRoles.includes(role.displayName)
                                             ? <Button onClick={ () => handleRoleConfiguration(role.displayName) }
                                                       primary>Configure</Button>
                                             : null
@@ -118,7 +119,7 @@ export const User: FunctionComponent<UserEditProps> = (
                             : (
                                 <>
                                     {
-                                        !(sanitizeRoleName(role.displayName) === "nat_dis_rep_view" || sanitizeRoleName(role.displayName) === "nat_dis_rep_verf" || sanitizeRoleName(role.displayName) === "ec_leadership")
+                                        !ecConfig.readonlyECRoles.includes(role.displayName)
                                             ? <Button onClick={ () => handleRoleConfiguration(role.displayName) }
                                                       primary>Configure</Button>
                                             : null
@@ -132,7 +133,6 @@ export const User: FunctionComponent<UserEditProps> = (
 
                     }
                 </List.Content>
-                <List.Content>{ role.displayName }</List.Content>
             </List.Item>
         );
     };
@@ -141,9 +141,9 @@ export const User: FunctionComponent<UserEditProps> = (
         setEditingRole(role.displayName);
         addRoleToUser(role.id, user)
             .then((response) => {
-                if (sanitizeRoleName(role.displayName) === "nat_dis_rep_view" || sanitizeRoleName(role.displayName) === "nat_dis_rep_verf" || sanitizeRoleName(role.displayName) === "ec_leadership") {
+                if (ecConfig.readonlyECRoles.includes(role.displayName)) {
                     const value = {
-                        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:ElectionVolunteer": {
+                        "EnterpriseUser": {
                             [ecConfig.getClaimMapping(editingRole)]: "[]"
                         }
                     };
@@ -237,8 +237,8 @@ export const User: FunctionComponent<UserEditProps> = (
         });
 
         const ecClaim = user
-            && user.ElectionVolunteer
-            && user.ElectionVolunteer[ecConfig.getClaimMapping(editingRole)];
+            && user.EnterpriseUser
+            && user.EnterpriseUser[ecConfig.getClaimMapping(editingRole)];
 
         return (
             <Modal
@@ -340,7 +340,7 @@ export const User: FunctionComponent<UserEditProps> = (
 
     const handleClaimRemove = (claim, removingValue) => {
         const value = {
-            "urn:ietf:params:scim:schemas:extension:enterprise:2.0:ElectionVolunteer": {
+            "EnterpriseUser": {
                 [ecConfig.getClaimMapping(editingRole)]: JSON.stringify(claim.filter((val) => val.areaId !== removingValue.areaId))
             }
         };
@@ -371,7 +371,7 @@ export const User: FunctionComponent<UserEditProps> = (
         let existingArr = [];
 
         try {
-            existingArr = JSON.parse(user && user.ElectionVolunteer && user.ElectionVolunteer[ecConfig.getClaimMapping(editingRole)]);
+            existingArr = JSON.parse(user && user.EnterpriseUser && user.EnterpriseUser[ecConfig.getClaimMapping(editingRole)]);
         } catch (e) {
             console.log(e);
         }
@@ -380,7 +380,7 @@ export const User: FunctionComponent<UserEditProps> = (
 
         if (sanitizeRoleName(editingRole) === "data_editor") {
             value = {
-                "urn:ietf:params:scim:schemas:extension:enterprise:2.0:ElectionVolunteer": {
+                "EnterpriseUser": {
                     [ecConfig.getClaimMapping(editingRole)]: existingArr
                         ? JSON.stringify([...existingArr, {
                             areaId: countingCentre.areaId,
@@ -391,7 +391,7 @@ export const User: FunctionComponent<UserEditProps> = (
             };
         } else if (sanitizeRoleName(editingRole) === "elc_dis_rep_view" || sanitizeRoleName(editingRole) === "elc_dis_rep_verf") {
             value = {
-                "urn:ietf:params:scim:schemas:extension:enterprise:2.0:ElectionVolunteer": {
+                "EnterpriseUser": {
                     [ecConfig.getClaimMapping(editingRole)]: existingArr
                         ? JSON.stringify([...existingArr, {
                             areaId: electoralDistrict.areaId,
@@ -402,7 +402,7 @@ export const User: FunctionComponent<UserEditProps> = (
             };
         } else if (sanitizeRoleName(editingRole) === "pol_div_rep_view" || sanitizeRoleName(editingRole) === "pol_div_rep_verf") {
             value = {
-                "urn:ietf:params:scim:schemas:extension:enterprise:2.0:ElectionVolunteer": {
+                "EnterpriseUser": {
                     [ecConfig.getClaimMapping(editingRole)]: existingArr
                         ? JSON.stringify([...existingArr, {
                             areaId: pollingDivision.areaId,

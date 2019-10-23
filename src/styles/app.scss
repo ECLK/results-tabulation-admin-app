@@ -27,3 +27,18 @@
     }
   }
 }
+
+.ui.menu {
+  &.app-header {
+    .item>img:not(.ui) {
+      &.eclk-logo {
+        width: 25px;
+        margin-right: 10px;
+      }
+    }
+
+    .eclk-logo-text {
+      font-size: 1.5em;
+    }
+  }
+}
