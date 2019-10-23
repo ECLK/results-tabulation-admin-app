@@ -24,6 +24,7 @@ const DEFAULT_CONFIG = {
     IS_ENDPOINT: "https://localhost:9443",
     TABULATION_API_ENDPOINT: "https://api.tabulation.ecstag.opensource.lk",
     CLIENT_ID: "ECLK_ADMIN_APP",
+    CLIENT_SECRET: null,
     CLIENT_HOST: "https://localhost:9000",
     LOGIN_CALLBACK_URL: "https://localhost:9000/login",
     LOGOUT_CALLBACK_URL: "https://localhost:9000/logout"
@@ -111,6 +112,19 @@ export class AppConfig {
             ? process.env.REACT_APP_CLIENT_ID
             : DEFAULT_CONFIG.CLIENT_ID;
     }
+
+    /**
+     * Returns the client secret.
+     *
+     * @return {string}
+     */
+    public get clientSecret(): string {
+        return process.env.REACT_APP_CLIENT_SECRET
+            ? process.env.REACT_APP_CLIENT_SECRET
+            : DEFAULT_CONFIG.CLIENT_SECRET;
+    }
+
+    REACT_APP_CLIENT_SECRET
 
     /**
      * Returns the client host.
