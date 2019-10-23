@@ -24,7 +24,7 @@ export interface IUsers {
 }
 
 export interface IUser {
-    ElectionVolunteer: any;
+    EnterpriseUser: any;
     groups: IGroup[];
     id: string;
     created: string;
