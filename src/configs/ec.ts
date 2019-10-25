@@ -33,14 +33,14 @@ export class ECConfig {
      */
     public get ECRoles(): string[] {
         return [
-            "PRIMARY/data_editor",
-            "PRIMARY/pol_div_rep_view",
-            "PRIMARY/pol_div_rep_verf",
-            "PRIMARY/elc_dis_rep_view",
-            "PRIMARY/elc_dis_rep_verf",
-            "PRIMARY/nat_dis_rep_view",
-            "PRIMARY/nat_dis_rep_verf",
-            "PRIMARY/ec_leadership"
+            "PRIMARY/tab_data_editor",
+            "PRIMARY/tab_pol_div_rep_view",
+            "PRIMARY/tab_pol_div_rep_verf",
+            "PRIMARY/tab_elc_dis_rep_view",
+            "PRIMARY/tab_elc_dis_rep_verf",
+            "PRIMARY/tab_nat_dis_rep_view",
+            "PRIMARY/tab_nat_dis_rep_verf",
+            "PRIMARY/tab_ec_leadership"
         ];
     }
 
@@ -51,9 +51,9 @@ export class ECConfig {
      */
     public get readonlyECRoles(): string[] {
         return [
-            "PRIMARY/nat_dis_rep_view",
-            "PRIMARY/nat_dis_rep_verf",
-            "PRIMARY/ec_leadership"
+            "PRIMARY/tab_nat_dis_rep_view",
+            "PRIMARY/tab_nat_dis_rep_verf",
+            "PRIMARY/tab_ec_leadership"
         ];
     }
 
@@ -64,7 +64,7 @@ export class ECConfig {
      * @return {string}
      */
     public getClaimMapping(role): string {
-        return `${CLAIM_PREFIX}_${sanitizeRoleName(role)}`;
+        return `${CLAIM_PREFIX}_${sanitizeRoleName(role).replace("tab_", "")}`;
     }
 
     public getSanitizedRoleName (raw): string {
