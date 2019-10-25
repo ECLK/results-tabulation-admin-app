@@ -188,12 +188,12 @@ export const User: FunctionComponent<UserEditProps> = (
     const onElectoralDistrictSelect = (e, { value }): void => {
         const district = JSON.parse(value);
         setElectoralDistrict(district);
-        if (sanitizeRoleName(editingRole) === "data_editor") {
+        if (sanitizeRoleName(editingRole) === "tab_data_editor") {
             fetchAreas("CountingCentre", district.areaId)
                 .then((response) => {
                     setCountingCentres(response);
                 })
-        } else if (sanitizeRoleName(editingRole) === "pol_div_rep_view" || sanitizeRoleName(editingRole) === "pol_div_rep_verf") {
+        } else if (sanitizeRoleName(editingRole) === "tab_pol_div_rep_view" || sanitizeRoleName(editingRole) === "tab_pol_div_rep_verf") {
             fetchAreas("PollingDivision", district.areaId)
                 .then((response) => {
                     setPollingDivisions(response);
@@ -289,7 +289,7 @@ export const User: FunctionComponent<UserEditProps> = (
                                 searchInput={ { id: "form-select-control-electoral-district" } }
                             />
                             {
-                                sanitizeRoleName(editingRole) === "data_editor"
+                                sanitizeRoleName(editingRole) === "tab_data_editor"
                                     ? (
                                         <>
                                             <Form.Field
@@ -310,7 +310,7 @@ export const User: FunctionComponent<UserEditProps> = (
                                     : null
                             }
                             {
-                                (sanitizeRoleName(editingRole) === "pol_div_rep_view" || sanitizeRoleName(editingRole) === "pol_div_rep_verf")
+                                (sanitizeRoleName(editingRole) === "tab_pol_div_rep_view" || sanitizeRoleName(editingRole) === "tab_pol_div_rep_verf")
                                     ? (
                                         <>
                                             <Form.Field
@@ -378,7 +378,7 @@ export const User: FunctionComponent<UserEditProps> = (
 
         console.log('ex', existingArr)
 
-        if (sanitizeRoleName(editingRole) === "data_editor") {
+        if (sanitizeRoleName(editingRole) === "tab_data_editor") {
             value = {
                 "EnterpriseUser": {
                     [ecConfig.getClaimMapping(editingRole)]: existingArr
@@ -389,7 +389,7 @@ export const User: FunctionComponent<UserEditProps> = (
                         : JSON.stringify([{ areaId: countingCentre.areaId, areaName: countingCentre.areaName }])
                 }
             };
-        } else if (sanitizeRoleName(editingRole) === "elc_dis_rep_view" || sanitizeRoleName(editingRole) === "elc_dis_rep_verf") {
+        } else if (sanitizeRoleName(editingRole) === "tab_elc_dis_rep_view" || sanitizeRoleName(editingRole) === "tab_elc_dis_rep_verf") {
             value = {
                 "EnterpriseUser": {
                     [ecConfig.getClaimMapping(editingRole)]: existingArr
@@ -400,7 +400,7 @@ export const User: FunctionComponent<UserEditProps> = (
                         : JSON.stringify([{ areaId: electoralDistrict.areaId, areaName: electoralDistrict.areaName }])
                 }
             };
-        } else if (sanitizeRoleName(editingRole) === "pol_div_rep_view" || sanitizeRoleName(editingRole) === "pol_div_rep_verf") {
+        } else if (sanitizeRoleName(editingRole) === "tab_pol_div_rep_view" || sanitizeRoleName(editingRole) === "tab_pol_div_rep_verf") {
             value = {
                 "EnterpriseUser": {
                     [ecConfig.getClaimMapping(editingRole)]: existingArr
