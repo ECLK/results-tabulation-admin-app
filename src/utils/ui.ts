@@ -6,7 +6,8 @@ export const resolveUserDisplayName = (name: IUserName): string => {
 };
 
 export const sanitizeRoleName = (roleName: string): string => {
-    return roleName.split("/")[1];
+    const nameParts = roleName.split("/");
+    return nameParts[1] ? nameParts[1] : nameParts[0];
 };
 
 export const beautifyRoleName = (role: string): string => {
