@@ -39,7 +39,7 @@ interface UsersProps {
 export const Users: FunctionComponent<UsersProps> = (
     props: UsersProps
 ): JSX.Element => {
-    const [users, setUsers] = useState<IUsers>({ Resources: [] });
+    const [ users, setUsers ] = useState<IUsers>({ Resources: [] });
 
     useEffect(() => {
         fetchUsers()
@@ -61,6 +61,8 @@ export const Users: FunctionComponent<UsersProps> = (
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell>User</Table.HeaderCell>
+                                    <Table.HeaderCell>NIC</Table.HeaderCell>
+                                    <Table.HeaderCell>Phone Numbers</Table.HeaderCell>
                                     <Table.HeaderCell>Roles</Table.HeaderCell>
                                     <Table.HeaderCell>Actions</Table.HeaderCell>
                                 </Table.Row>
@@ -85,15 +87,32 @@ export const Users: FunctionComponent<UsersProps> = (
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
+                                                        user && user.EnterpriseUser && user.EnterpriseUser.nationalId
+                                                            ? (<span>{ user.EnterpriseUser.nationalId }</span>)
+                                                            : null
+                                                    }
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {
+                                                        user && user.phoneNumbers && user.phoneNumbers.length > 0
+                                                            ? user.phoneNumbers.map((number) => (
+                                                                <span>{ number.value }&ensp;</span>
+                                                            ))
+                                                            : null
+                                                    }
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {
                                                         user.groups.map((group) => (
-                                                            <Label color="red" size="mini" style={{ marginBottom: "0.5em" }} horizontal circular>
+                                                            <Label color="red" size="mini" style={ { marginBottom: "0.5em" } }
+                                                                   horizontal circular>
                                                                 { group.display }
                                                             </Label>
                                                         ))
                                                     }
                                                 </Table.Cell>
                                                 <Table.Cell>
-                                                    <Link to={`/user/${user.id}`}>Edit</Link>
+                                                    <Link to={ `/user/${ user.id }` }>Edit</Link>
                                                 </Table.Cell>
                                             </Table.Row>
                                         )
