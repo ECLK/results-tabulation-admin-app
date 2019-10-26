@@ -31,6 +31,7 @@ export interface IUser {
     lastModified: string;
     resourceType: string;
     name: IUserName;
+    phoneNumbers: IPhoneNumber[];
     familyName: string;
     userName: string;
 }
@@ -57,5 +58,10 @@ export interface IUserName {
 
 export interface IGroup {
     display: string;
+    value: string;
+}
+
+export interface IPhoneNumber {
+    type: string;
     value: string;
 }
