@@ -103,7 +103,7 @@ export const Users: FunctionComponent<UsersProps> = (
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
-                                                        user.groups.map((group) => (
+                                                        user && user.groups && user.groups.map((group) => (
                                                             <Label color="red" size="mini" style={ { marginBottom: "0.5em" } }
                                                                    horizontal circular>
                                                                 { group.display }
