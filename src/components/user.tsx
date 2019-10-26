@@ -53,16 +53,16 @@ interface UserEditProps {
 export const User: FunctionComponent<UserEditProps> = (
     props: UserEditProps
 ): JSX.Element => {
-    const [user, setUser] = useState<IUser>(null);
-    const [editingRole, setEditingRole] = useState<string>("");
-    const [electoralDistricts, setElectoralDistricts] = useState([]);
-    const [countingCentres, setCountingCentres] = useState([]);
-    const [pollingDivisions, setPollingDivisions] = useState([]);
-    const [electoralDistrict, setElectoralDistrict] = useState(null);
-    const [countingCentre, setCountingCentre] = useState(null);
-    const [pollingDivision, setPollingDivision] = useState(null);
-    const [availableRoles, setAvailableRoles] = useState<IRoles>({ Resources: [] });
-    const [showUserEditView, setShowUserEditView] = useState<boolean>(false);
+    const [ user, setUser ] = useState<IUser>(null);
+    const [ editingRole, setEditingRole ] = useState<string>("");
+    const [ electoralDistricts, setElectoralDistricts ] = useState([]);
+    const [ countingCentres, setCountingCentres ] = useState([]);
+    const [ pollingDivisions, setPollingDivisions ] = useState([]);
+    const [ electoralDistrict, setElectoralDistrict ] = useState(null);
+    const [ countingCentre, setCountingCentre ] = useState(null);
+    const [ pollingDivision, setPollingDivision ] = useState(null);
+    const [ availableRoles, setAvailableRoles ] = useState<IRoles>({ Resources: [] });
+    const [ showUserEditView, setShowUserEditView ] = useState<boolean>(false);
 
     useEffect(() => {
         if (!(props.match && props.match.params && props.match.params.id)) {
@@ -92,7 +92,7 @@ export const User: FunctionComponent<UserEditProps> = (
             .catch((error) => {
                 console.log(error);
             });
-    }, [props.match]);
+    }, [ props.match ]);
 
     const generateConfigurableRole = (role): JSX.Element => {
         if (!ecConfig.ECRoles.includes(role.displayName)) {
@@ -104,7 +104,7 @@ export const User: FunctionComponent<UserEditProps> = (
                 <List.Content floated="right">
                     {
                         user.groups.find((group) => group.value === role.id)
-                            ? (user.EnterpriseUser && user.EnterpriseUser[ecConfig.getClaimMapping(role.displayName)])
+                            ? (user.EnterpriseUser && user.EnterpriseUser[ ecConfig.getClaimMapping(role.displayName) ])
                             ? (
                                 <>
                                     {
@@ -144,7 +144,7 @@ export const User: FunctionComponent<UserEditProps> = (
                 if (ecConfig.readonlyECRoles.includes(role.displayName)) {
                     const value = {
                         "EnterpriseUser": {
-                            [ecConfig.getClaimMapping(editingRole)]: "[]"
+                            [ ecConfig.getClaimMapping(editingRole) ]: "[]"
                         }
                     };
 
@@ -212,7 +212,7 @@ export const User: FunctionComponent<UserEditProps> = (
     };
 
     const roleConfigModal = () => {
-        const electoralDistrictOptions = [...electoralDistricts].map((district, index) => {
+        const electoralDistrictOptions = [ ...electoralDistricts ].map((district, index) => {
             return {
                 key: index,
                 text: district.areaName,
@@ -220,7 +220,7 @@ export const User: FunctionComponent<UserEditProps> = (
             }
         });
 
-        const countingCentreOptions = [...countingCentres].map((centre, index) => {
+        const countingCentreOptions = [ ...countingCentres ].map((centre, index) => {
             return {
                 key: index,
                 text: centre.areaName,
@@ -228,7 +228,7 @@ export const User: FunctionComponent<UserEditProps> = (
             }
         });
 
-        const pollingDivisionOptions = [...pollingDivisions].map((division, index) => {
+        const pollingDivisionOptions = [ ...pollingDivisions ].map((division, index) => {
             return {
                 key: index,
                 text: division.areaName,
@@ -238,7 +238,7 @@ export const User: FunctionComponent<UserEditProps> = (
 
         const ecClaim = user
             && user.EnterpriseUser
-            && user.EnterpriseUser[ecConfig.getClaimMapping(editingRole)];
+            && user.EnterpriseUser[ ecConfig.getClaimMapping(editingRole) ];
 
         return (
             <Modal
@@ -341,7 +341,7 @@ export const User: FunctionComponent<UserEditProps> = (
     const handleClaimRemove = (claim, removingValue) => {
         const value = {
             "EnterpriseUser": {
-                [ecConfig.getClaimMapping(editingRole)]: JSON.stringify(claim.filter((val) => val.areaId !== removingValue.areaId))
+                [ ecConfig.getClaimMapping(editingRole) ]: JSON.stringify(claim.filter((val) => val.areaId !== removingValue.areaId))
             }
         };
 
@@ -371,7 +371,7 @@ export const User: FunctionComponent<UserEditProps> = (
         let existingArr = [];
 
         try {
-            existingArr = JSON.parse(user && user.EnterpriseUser && user.EnterpriseUser[ecConfig.getClaimMapping(editingRole)]);
+            existingArr = JSON.parse(user && user.EnterpriseUser && user.EnterpriseUser[ ecConfig.getClaimMapping(editingRole) ]);
         } catch (e) {
             console.log(e);
         }
@@ -381,34 +381,34 @@ export const User: FunctionComponent<UserEditProps> = (
         if (sanitizeRoleName(editingRole) === "tab_data_editor") {
             value = {
                 "EnterpriseUser": {
-                    [ecConfig.getClaimMapping(editingRole)]: existingArr
-                        ? JSON.stringify([...existingArr, {
+                    [ ecConfig.getClaimMapping(editingRole) ]: existingArr
+                        ? JSON.stringify([ ...existingArr, {
                             areaId: countingCentre.areaId,
                             areaName: countingCentre.areaName
-                        }])
-                        : JSON.stringify([{ areaId: countingCentre.areaId, areaName: countingCentre.areaName }])
+                        } ])
+                        : JSON.stringify([ { areaId: countingCentre.areaId, areaName: countingCentre.areaName } ])
                 }
             };
         } else if (sanitizeRoleName(editingRole) === "tab_elc_dis_rep_view" || sanitizeRoleName(editingRole) === "tab_elc_dis_rep_verf") {
             value = {
                 "EnterpriseUser": {
-                    [ecConfig.getClaimMapping(editingRole)]: existingArr
-                        ? JSON.stringify([...existingArr, {
+                    [ ecConfig.getClaimMapping(editingRole) ]: existingArr
+                        ? JSON.stringify([ ...existingArr, {
                             areaId: electoralDistrict.areaId,
                             areaName: electoralDistrict.areaName
-                        }])
-                        : JSON.stringify([{ areaId: electoralDistrict.areaId, areaName: electoralDistrict.areaName }])
+                        } ])
+                        : JSON.stringify([ { areaId: electoralDistrict.areaId, areaName: electoralDistrict.areaName } ])
                 }
             };
         } else if (sanitizeRoleName(editingRole) === "tab_pol_div_rep_view" || sanitizeRoleName(editingRole) === "tab_pol_div_rep_verf") {
             value = {
                 "EnterpriseUser": {
-                    [ecConfig.getClaimMapping(editingRole)]: existingArr
-                        ? JSON.stringify([...existingArr, {
+                    [ ecConfig.getClaimMapping(editingRole) ]: existingArr
+                        ? JSON.stringify([ ...existingArr, {
                             areaId: pollingDivision.areaId,
                             areaName: pollingDivision.areaName
-                        }])
-                        : JSON.stringify([{ areaId: pollingDivision.areaId, areaName: pollingDivision.areaName }])
+                        } ])
+                        : JSON.stringify([ { areaId: pollingDivision.areaId, areaName: pollingDivision.areaName } ])
                 }
             };
         }
@@ -432,6 +432,30 @@ export const User: FunctionComponent<UserEditProps> = (
                                     <div className="section">
                                         <div className="key">Name</div>
                                         <div className="value">{ resolveUserDisplayName(user.name) }</div>
+                                    </div>
+                                )
+                                : null
+                        }
+                        {
+                            user && user.EnterpriseUser && user.EnterpriseUser.nationalId
+                                ? (
+                                    <div className="section">
+                                        <div className="key">NIC</div>
+                                        <div className="value">{ user.EnterpriseUser.nationalId }</div>
+                                    </div>
+                                )
+                                : null
+                        }
+                        {
+                            user && user.phoneNumbers && user.phoneNumbers.length > 0
+                                ? (
+                                    <div className="section">
+                                        <div className="key">Phone Numbers</div>
+                                        {
+                                            user.phoneNumbers.map((number) => (
+                                                <div className="value">{ number.value }</div>
+                                            ))
+                                        }
                                     </div>
                                 )
                                 : null
