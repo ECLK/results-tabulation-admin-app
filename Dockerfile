@@ -12,6 +12,7 @@ ENV REACT_APP_HOME_PATH=/users
 ENV REACT_APP_LOGIN_PATH=/login
 ENV REACT_APP_LOGOUT_PATH=/logout
 
+
 RUN npm run build
 
 # host environment
