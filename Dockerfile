@@ -12,4 +12,13 @@ ENV REACT_APP_HOME_PATH=/users
 ENV REACT_APP_LOGIN_PATH=/login
 ENV REACT_APP_LOGOUT_PATH=/logout
 
-CMD npm run build
+
+RUN npm run build
+
+# host environment
+FROM nginx:1.16.0-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
