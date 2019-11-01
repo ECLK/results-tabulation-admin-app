@@ -18,7 +18,7 @@
 
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { ECConfig } from "../configs";
-import { Button, Card, Divider, Form, Header, Icon, List, Modal, Select } from "semantic-ui-react";
+import { Button, Divider, Form, Header, Icon, List, Modal, Select } from "semantic-ui-react";
 import { IGroup, IRoles, IUser } from "../models/users";
 import { Link } from "react-router-dom";
 import { beautifyRoleName, resolveUserDisplayName, sanitizeRoleName } from "../utils";
@@ -422,14 +422,6 @@ export const User: FunctionComponent<UserEditProps> = (
             { user
                 ? (
                     <div className="user-info">
-                        <Card fluid>
-                            <Card.Content>
-                                <Card.Header>Username</Card.Header>
-                            </Card.Content>
-                            <Card.Content>
-                                { user.userName }
-                            </Card.Content>
-                        </Card>
                         <div className="section">
                             <div className="key">Username</div>
                             <div className="value">{ user.userName }</div>
